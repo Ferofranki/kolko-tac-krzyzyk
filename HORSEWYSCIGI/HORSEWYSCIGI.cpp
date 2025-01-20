@@ -1,11 +1,10 @@
 ﻿#include <iostream>
-#include <conio.h>//для захвату кнопкі
+#include <conio.h>//захват нажатия кнопки
+#include <windows.h>
 using namespace std;
-
-
 const int rows = 27;
 const int colum = 120;
-
+char arr_row[120];
 char map[rows][colum] = {
 	{ "                   #                   #                                                                               " },
 	{ "                   #                   #                                                                               " },
@@ -61,12 +60,12 @@ char menu[rows][colum] = {
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
+	{ "                                                         MENU                                                          " },
+	{ "                                                     1)  PLAY WITH FRIEND                                              " },
+	{ "                                                     2)  PLAY WITH BOT                                                 " },
+	{ "                                                     3)  EXIT                                                          " },
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
-	{ "                                                   START GAME?                                                         " },
-	{ "                                                                                                                       " },
-	{ "                                   YES                                     NO                                          " },
-	{ "                                 (ENTER)                                  (ESC)                                        " },
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
@@ -79,21 +78,21 @@ char end_prog[rows][colum] = {
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
-	{ "                                                                                                               #       " },
-	{ "                ############                                                                                   #       " },
-	{ "               #                                                                                               #       " },
-	{ "              #                                                                                                #       " },
-	{ "              #                                                                                                #       " },
-	{ "               #                                                                                               #       " },
-	{ "                 #                                                                                             #       " },
-	{ "                   #            ########    ########                #        #     #######     #        #      #       " },
-	{ "                     #         #        #  #        #               #        #    #       #    #        #      #       " },
-	{ "                       #       #        #  #        #               #        #   #         #   #        #      #       " },
-	{ "                         #     #        #  #        #               #        #  #           #  #        #      #       " },
-	{ "                          #    #########   #########                 #########  #           #  #        #      #       " },
-	{ "                          #    #           #                                 #   #         #   #        #      #       " },
+	{ "                                                                                                                       " },
+	{ "                ############                                                                                           " },
+	{ "               #                                                                                                       " },
+	{ "              #                                                                                                        " },
+	{ "              #                                                                                                        " },
+	{ "               #                                                                                                       " },
+	{ "                 #                                                                                                     " },
+	{ "                   #            ########    ########                #        #     #######     #        #              " },
+	{ "                     #         #        #  #        #               #        #    #       #    #        #              " },
+	{ "                       #       #        #  #        #               #        #   #         #   #        #              " },
+	{ "                         #     #        #  #        #               #        #  #           #  #        #              " },
+	{ "                          #    #########   #########                 #########  #           #  #        #              " },
+	{ "                          #    #           #                                 #   #         #   #        #              " },
 	{ "                         #     #           #                                 #    #       #     ##     ##              " },
-	{ "             ############       ########    #######                  ########      #######        ##### ##     #       " },
+	{ "             ############       ########    #######                  ########      #######        ##### ##             " },
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " },
@@ -104,7 +103,10 @@ char end_prog[rows][colum] = {
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " }
 };
+class Bot
+{
 
+};
 
 const int s_place_rows = 8;
 const int s_place_colums = 20;
@@ -113,13 +115,13 @@ char search_place[s_place_rows][s_place_colums] = { { "         |         "},
 												    { "                   "},
 												    { "-                 -"},
 												    { "-                 -"},
-											  	    { "                   "},
-											  	    { "                   "},
+												    { "                   "},
+												    { "                   "},
 												    { "         |         "} };
 
 const int X_rows = 8;
 const int X_colums = 20;
-char X_arr[X_rows][X_colums] = {      { "                   "},
+char X_arr[X_rows][X_colums] = {      {"                   "},
 									  { "     X       X     "},
 									  { "       X   X       "},
 									  { "         X         "},
@@ -130,7 +132,7 @@ char X_arr[X_rows][X_colums] = {      { "                   "},
 
 const int O_rows = 8;
 const int O_colums = 20;
-char O_arr[O_rows][O_colums] = {	  { "                   "},
+char O_arr[O_rows][O_colums] = {      {"                   "},
 									  { "       OOOOO       "},
 									  { "     O       O     "},
 									  { "    O         O    "},
@@ -141,16 +143,16 @@ char O_arr[O_rows][O_colums] = {	  { "                   "},
 
 
 const int win_rows = 6;
-const int win_colums = 28;
-char win_arr[win_rows][win_colums] = { { "                           "},
-									   { " #       #  #   #   #      "},
-									   { " #   #   #      ##  #      "},
-									   { "  #  #  #   #   # # #      "},
-									   { "  # # # #   #   #  ##      "},
-									   { "   #   #    #   #   #      "} };
+const int win_colums = 27;
+char win_arr[win_rows][win_colums] = { { "                          " },
+									    { "#       #  #   #   #      "},
+									    { "#   #   #      ##  #      "},
+									    { " #  #  #   #   # # #      "},
+								        { " # # # #   #   #  ##      "},
+									    { "  #   #    #   #   #      "} };
 const int draw_rows = 6;
 const int draw_colums = 44;
-char draw_arr[draw_rows][draw_colums] = {    { "                                           " },
+char draw_arr[draw_rows][draw_colums] = {	 { "                                           " },
 											 { "  ####   ####        #      #       #      "},
 											 { "  #   #  #   #      # #     #   #   #      "},
 											 { "  #   #  ####      #   #     #  #  #       "},
@@ -268,23 +270,20 @@ int miniMap[3][3];
 
 
 
-
-
-
-
-void paint_map(char (*arr)[colum])//вывад мапы
+void paint_map(char (*arr)[colum])//вывод карты
 {
 	cout << '\n';
 	for (int i = 0; i < rows; i++)
 	{
 		for (int k = 0; k < colum; k++)
 		{
-			cout << arr[i][k];
+			//cout << arr[i][k];
+			arr_row[k] = arr[i][k];
 		}
-		cout << '\n';
+		cout << arr_row << endl;
 	}
 }
-int isWin(int (*miniMap)[3], char (*arr)[colum])//падлік пераможца
+int isWin(int (*miniMap)[3], char (*arr)[colum])//расчет победителя
 {
 	bool noOne = true;
 	for (int i = 0; i < 3; i++)
@@ -310,7 +309,7 @@ int isWin(int (*miniMap)[3], char (*arr)[colum])//падлік пераможц�
 			{
 				arr[i * 9 + 3][k] = crossRow_arr1[k];
 			}
-			///////////.........................................................................
+			///////////
 			return 1;
 		}
 		if (c == 1)
@@ -318,7 +317,7 @@ int isWin(int (*miniMap)[3], char (*arr)[colum])//падлік пераможц�
 
 			for (int j = 0; j < cross_rows2 - 1; j++)
 			{
-				for (int k = 0; k < cross_colums2; k++)
+				for (int k = 0; k < cross_colums2 - 1; k++)
 				{
 					arr[j][i * 20 + 8 + k] = crossRow_arr2[j][k];
 				}
@@ -362,7 +361,7 @@ int isWin(int (*miniMap)[3], char (*arr)[colum])//падлік пераможц�
 		{
 			for (int j = 0; j < cross_rows2 - 1; j++)
 			{
-				for (int k = 0; k < cross_colums2; k++)
+				for (int k = 0; k < cross_colums2 - 1; k++)
 				{
 					arr[j][i * 20 + 8 + k] = crossRow_arr2[j][k];
 				}
@@ -406,7 +405,387 @@ int isWin(int (*miniMap)[3], char (*arr)[colum])//падлік пераможц�
 
 
 }
-int move(char (*arr)[colum], char(*search_place)[s_place_colums], int* coordinate_x, int* coordinate_y, int* score, bool* run) //рух і навігацыя
+void easy_bot_move(int* score)
+{
+	int hit_colum;
+	int hit_row;
+	while (true)
+	{
+		hit_row = rand() % 3;
+		hit_colum = rand() % 3;
+		if ((*score) % 2 == 0 && miniMap[hit_row][hit_colum] == 0)//x
+		{
+			for (int i = 0; i < X_rows; i++)
+			{
+				for (int k = 0; k < X_colums - 1; k++)
+					if (X_arr[i][k] != ' ')
+						map[hit_row * 9 + i][hit_colum * 20 + k] = X_arr[i][k];
+			}
+			miniMap[hit_row][hit_colum] = 1;
+			*score += 1;
+			break;
+		}
+		else if ((*score) % 2 == 1 && miniMap[hit_row][hit_colum] == 0)//o
+		{
+			for (int i = 0; i < O_rows; i++)
+			{
+				for (int k = 0; k < O_colums - 1; k++)
+					if (O_arr[i][k] != ' ')
+						map[hit_row * 9 + i][hit_colum * 20 + k] = O_arr[i][k];
+			}
+			miniMap[hit_row][hit_colum] = 2;
+			*score += 1;
+			break;
+		}
+	}
+}
+bool bot_draw(int* score, int hit_row, int hit_colum)
+{
+	if ((*score) % 2 == 0 && miniMap[hit_row][hit_colum] == 0)//x
+	{
+		for (int i = 0; i < X_rows; i++)
+		{
+			for (int k = 0; k < X_colums - 1; k++)
+				if (X_arr[i][k] != ' ')
+					map[hit_row * 9 + i][hit_colum * 20 + k] = X_arr[i][k];
+		}
+		miniMap[hit_row][hit_colum] = 1;
+		*score += 1;
+		return 1;
+	}
+	else if ((*score) % 2 == 1 && miniMap[hit_row][hit_colum] == 0)//o
+	{
+		for (int i = 0; i < O_rows; i++)
+		{
+			for (int k = 0; k < O_colums - 1; k++)
+				if (O_arr[i][k] != ' ')
+					map[hit_row * 9 + i][hit_colum * 20 + k] = O_arr[i][k];
+		}
+		miniMap[hit_row][hit_colum] = 2;
+		*score += 1;
+		return 1;
+	}
+	return 0;
+}
+
+void medium_bot_move(int* score)
+{
+	int hit_colum = -1;
+	int hit_row = -1;
+	int hit_diog_1 = -1;
+	int hit_diog_2 = -1;
+	if (*score % 2 == 1)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			bool correct_row = false;
+			bool correct_colum = false;
+			bool correct_diog_1 = false;
+			bool correct_diog_2 = false;
+			hit_row = -1;
+			hit_colum = -1;
+			hit_diog_1 = -1;
+			hit_diog_2 = -1;
+			int count_x_O = 0;
+			int count_y_O = 0;
+			int count_diog_1x_O = 0;
+			int count_diog_2x_O = 0;
+
+			for (int k = 0; k < 3; k++)
+			{
+				// Проверка строк
+				miniMap[i][k] == 2 ? count_x_O++ : 0;
+				miniMap[i][k] == 0 ? correct_row = true : 0;
+
+				// Проверка столбцов
+				miniMap[k][i] == 2 ? count_y_O++ : 0;
+				miniMap[k][i] == 0 ? correct_colum = true : 0;
+
+				// Проверка первой диагонали
+				miniMap[k][k] == 2 ? count_diog_1x_O++ : 0;
+				miniMap[k][k] == 0 ? correct_diog_1 = true : 0;
+
+				// Проверка второй диагонали
+				miniMap[2 - k][k] == 2 ? count_diog_2x_O++ : 0;
+				miniMap[2 - k][k] == 0 ? correct_diog_2 = true : 0;
+			}
+
+			// Проверка строк для выигрыша ноликов
+			if (count_x_O == 2 && correct_row)
+			{
+				hit_row = i;
+				break;
+			}
+
+			// Проверка столбцов для выигрыша ноликов
+			if (count_y_O == 2 && correct_colum)
+			{
+				hit_colum = i;
+				break;
+			}
+
+			// Проверка первой диагонали для выигрыша ноликов
+			if (count_diog_1x_O == 2 && correct_diog_1)
+			{
+				hit_diog_1 = 1;
+				break;
+			}
+
+			// Проверка второй диагонали для выигрыша ноликов
+			if (count_diog_2x_O == 2 && correct_diog_2)
+			{
+				hit_diog_2 = 1;
+				break;
+			}
+		}
+
+		// Если нет возможности выиграть, блокируем крестики
+		if (hit_row == -1 && hit_colum == -1 && hit_diog_1 == -1 && hit_diog_2 == -1)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				bool correct_row = false;
+				bool correct_colum = false;
+				bool correct_diog_1 = false;
+				bool correct_diog_2 = false;
+				hit_row = -1;
+				hit_colum = -1;
+				hit_diog_1 = -1;
+				hit_diog_2 = -1;
+				int count_x_X = 0;
+				int count_y_X = 0;
+				int count_diog_1x_X = 0;
+				int count_diog_2x_X = 0;
+
+				for (int k = 0; k < 3; k++)
+				{
+					// Проверка строк
+					miniMap[i][k] == 1 ? count_x_X++ : 0;
+					miniMap[i][k] == 0 ? correct_row = true : 0;
+
+					// Проверка столбцов
+					miniMap[k][i] == 1 ? count_y_X++ : 0;
+					miniMap[k][i] == 0 ? correct_colum = true : 0;
+
+					// Проверка первой диагонали
+					miniMap[k][k] == 1 ? count_diog_1x_X++ : 0;
+					miniMap[k][k] == 0 ? correct_diog_1 = true : 0;
+
+					// Проверка второй диагонали
+					miniMap[2 - k][k] == 1 ? count_diog_2x_X++ : 0;
+					miniMap[2 - k][k] == 0 ? correct_diog_2 = true : 0;
+				}
+
+				// Проверка строк для блокировки крестиков
+				if (count_x_X == 2 && correct_row)
+				{
+					hit_row = i;
+					break;
+				}
+
+				// Проверка столбцов для блокировки крестиков
+				if (count_y_X == 2 && correct_colum)
+				{
+					hit_colum = i;
+					break;
+				}
+
+				// Проверка первой диагонали для блокировки крестиков
+				if (count_diog_1x_X == 2 && correct_diog_1)
+				{
+					hit_diog_1 = 1;
+					break;
+				}
+
+				// Проверка второй диагонали для блокировки крестиков
+				if (count_diog_2x_X == 2 && correct_diog_2)
+				{
+					hit_diog_2 = 1;
+					break;
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			bool correct_row = false;
+			bool correct_colum = false;
+			bool correct_diog_1 = false;
+			bool correct_diog_2 = false;
+			hit_row = -1;
+			hit_colum = -1;
+			hit_diog_1 = -1;
+			hit_diog_2 = -1;
+			int count_x_O = 0;
+			int count_y_O = 0;
+			int count_diog_1x_O = 0;
+			int count_diog_2x_O = 0;
+
+			for (int k = 0; k < 3; k++)
+			{
+				// Проверка строк
+				miniMap[i][k] == 1 ? count_x_O++ : 0;
+				miniMap[i][k] == 0 ? correct_row = true : 0;
+
+				// Проверка столбцов
+				miniMap[k][i] == 1 ? count_y_O++ : 0;
+				miniMap[k][i] == 0 ? correct_colum = true : 0;
+
+				// Проверка первой диагонали
+				miniMap[k][k] == 1 ? count_diog_1x_O++ : 0;
+				miniMap[k][k] == 0 ? correct_diog_1 = true : 0;
+
+				// Проверка второй диагонали
+				miniMap[2 - k][k] == 1 ? count_diog_2x_O++ : 0;
+				miniMap[2 - k][k] == 0 ? correct_diog_2 = true : 0;
+			}
+
+			// Проверка строк для выигрыша ноликов
+			if (count_x_O == 2 && correct_row)
+			{
+				hit_row = i;
+				break;
+			}
+
+			// Проверка столбцов для выигрыша ноликов
+			if (count_y_O == 2 && correct_colum)
+			{
+				hit_colum = i;
+				break;
+			}
+
+			// Проверка первой диагонали для выигрыша ноликов
+			if (count_diog_1x_O == 2 && correct_diog_1)
+			{
+				hit_diog_1 = 1;
+				break;
+			}
+
+			// Проверка второй диагонали для выигрыша ноликов
+			if (count_diog_2x_O == 2 && correct_diog_2)
+			{
+				hit_diog_2 = 1;
+				break;
+			}
+		}
+
+		// Если нет возможности выиграть, блокируем крестики
+		if (hit_row == -1 && hit_colum == -1 && hit_diog_1 == -1 && hit_diog_2 == -1)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				bool correct_row = false;
+				bool correct_colum = false;
+				bool correct_diog_1 = false;
+				bool correct_diog_2 = false;
+				hit_row = -1;
+				hit_colum = -1;
+				hit_diog_1 = -1;
+				hit_diog_2 = -1;
+				int count_x_X = 0;
+				int count_y_X = 0;
+				int count_diog_1x_X = 0;
+				int count_diog_2x_X = 0;
+
+				for (int k = 0; k < 3; k++)
+				{
+					// Проверка строк
+					miniMap[i][k] == 2 ? count_x_X++ : 0;
+					miniMap[i][k] == 0 ? correct_row = true : 0;
+
+					// Проверка столбцов
+					miniMap[k][i] == 2 ? count_y_X++ : 0;
+					miniMap[k][i] == 0 ? correct_colum = true : 0;
+
+					// Проверка первой диагонали
+					miniMap[k][k] == 2 ? count_diog_1x_X++ : 0;
+					miniMap[k][k] == 0 ? correct_diog_1 = true : 0;
+
+					// Проверка второй диагонали
+					miniMap[2 - k][k] == 2 ? count_diog_2x_X++ : 0;
+					miniMap[2 - k][k] == 0 ? correct_diog_2 = true : 0;
+				}
+
+				// Проверка строк для блокировки крестиков
+				if (count_x_X == 2 && correct_row)
+				{
+					hit_row = i;
+					break;
+				}
+
+				// Проверка столбцов для блокировки крестиков
+				if (count_y_X == 2 && correct_colum)
+				{
+					hit_colum = i;
+					break;
+				}
+
+				// Проверка первой диагонали для блокировки крестиков
+				if (count_diog_1x_X == 2 && correct_diog_1)
+				{
+					hit_diog_1 = 1;
+					break;
+				}
+
+				// Проверка второй диагонали для блокировки крестиков
+				if (count_diog_2x_X == 2 && correct_diog_2)
+				{
+					hit_diog_2 = 1;
+					break;
+				}
+			}
+		}
+	}
+	Sleep(300);
+
+	if (hit_row != -1)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			bot_draw(score, hit_row, j);
+		}
+	}
+	else if (hit_colum != -1)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			bot_draw(score, j, hit_colum);
+		}
+	}
+	else if (hit_diog_1 != -1)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			bot_draw(score, j, j);
+		}
+	}
+	else if (hit_diog_2 != -1)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			bot_draw(score, 2 - j, j);
+		}
+	}
+	else
+	{
+		while (true)
+		{
+			hit_row = rand() % 3;
+			hit_colum = rand() % 3;
+			if (bot_draw(score, hit_row, hit_colum))
+			{
+				break;
+			}
+		}
+	}
+
+	cout << hit_row;
+	Sleep(1000);
+}
+
+int move(char (*arr)[colum], char(&search_place)[s_place_rows][s_place_colums], int* coordinate_x, int* coordinate_y, int* score, bool* run) //передвижение и навигация
 {
 
 	int step_x = 20;
@@ -418,11 +797,12 @@ int move(char (*arr)[colum], char(*search_place)[s_place_colums], int* coordinat
 		*run = false;
 		return 0;
 	}
-	if (a == 77)
+
+	if (a == 77 || a == 100)
 	{
 		if (*coordinate_x < colum - step_x - 60)
 		{
-			
+
 			for (int i = 0; i < s_place_rows; i++)
 			{
 				for (int k = 0; k < s_place_colums - 1; k++)
@@ -442,7 +822,7 @@ int move(char (*arr)[colum], char(*search_place)[s_place_colums], int* coordinat
 
 		}
 	}
-	if (a == 75)
+	if (a == 75 || a == 97)
 	{
 		if (*coordinate_x > 0)
 		{
@@ -461,7 +841,7 @@ int move(char (*arr)[colum], char(*search_place)[s_place_colums], int* coordinat
 			*coordinate_x -= step_x;
 		}
 	}
-	if (a == 80)
+	if (a == 80 || a == 115)
 	{
 		if (*coordinate_y < rows - step_y)
 		{
@@ -480,7 +860,7 @@ int move(char (*arr)[colum], char(*search_place)[s_place_colums], int* coordinat
 			*coordinate_y += step_y;
 		}
 	}
-	if (a == 72)
+	if (a == 72 || a == 119)
 	{
 		if (*coordinate_y > 0)
 		{
@@ -550,80 +930,136 @@ void whoNext(char (*arr)[colum], int score) //выбор следующего х
 		}
 	}
 }
+bool draw_win_scene()
+{
+	char rund_b;
+	if (isWin(miniMap, map) == 1)
+	{
+		system("cls");
+		for (int i = 0; i < win_rows; i++)
+		{
+			for (int k = 0; k < win_colums; k++)
+				map[3 + i][85 + k] = win_arr[i][k];
+		}
+		for (int i = 0; i < X_rows - 1; i++)
+		{
+			for (int k = 0; k < X_colums - 4; k++)
+				map[2 + i][65 + k] = X_arr[i][k];
+		}
+		paint_map(map);
+		rund_b = _getch();
+		return 1;
+	}
+	else if (isWin(miniMap, map) == 2)
+	{
+		system("cls");
 
-int play()
+		for (int i = 0; i < win_rows; i++)
+		{
+			for (int k = 0; k < win_colums; k++)
+				map[3 + i][85 + k] = win_arr[i][k];
+		}
+
+
+		for (int i = 0; i < O_rows - 1; i++)
+		{
+			for (int k = 0; k < O_colums - 4; k++)
+				map[2 + i][65 + k] = O_arr[i][k];
+		}
+		paint_map(map);
+		rund_b = _getch();
+		return 1;
+	}
+	else if (isWin(miniMap, map) == 3)
+	{
+		system("cls");
+		for (int i = 0; i < draw_rows; i++)
+		{
+			for (int k = 0; k < draw_colums; k++)
+				map[3 + i][69 + k] = draw_arr[i][k];
+		}
+		paint_map(map);
+		rund_b = _getch();
+		return 1;
+	}
+	return 0;
+}
+int play_with_friend()
 {
 	int score = 0;
-	char rund_b;
+
 	int coordinate_x = 20;
 	int coordinate_y = 9;
-
 	paint_map(map);
 	bool run = true;
 	while (run)
 	{
-
 		move(map, search_place, &coordinate_x, &coordinate_y, &score, &run);
 		whoNext(map, score);
 		system("cls");
-
 		paint_map(map);
-
-		if (isWin(miniMap, map) == 1)
-		{
-			system("cls");
-			for (int i = 0; i < win_rows; i++)
-			{
-				for (int k = 0; k < win_colums; k++)
-					map[3 + i][85 + k] = win_arr[i][k];
-			}
-			for (int i = 0; i < X_rows - 1; i++)
-			{
-				for (int k = 0; k < X_colums - 4; k++)
-					map[2 + i][65 + k] = X_arr[i][k];
-			}
-			paint_map(map);
-			rund_b = _getch();
+		//////////////////////////////////////////////////////////////////////////
+		if (draw_win_scene())
 			return 0;
-		}
-		else if (isWin(miniMap, map) == 2)
-		{
-			system("cls");
-
-			for (int i = 0; i < win_rows; i++)
-			{
-				for (int k = 0; k < win_colums; k++)
-					map[3 + i][85 + k] = win_arr[i][k];
-			}
-
-
-			for (int i = 0; i < O_rows - 1; i++)
-			{
-				for (int k = 0; k < O_colums - 4; k++)
-					map[2 + i][65 + k] = O_arr[i][k];
-			}
-			paint_map(map);
-			rund_b = _getch();
-			return 0;
-		}
-		else if (isWin(miniMap, map) == 3)
-		{
-			system("cls");
-			for (int i = 0; i < draw_rows; i++)
-			{
-				for (int k = 0; k < draw_colums; k++)
-					map[3 + i][69 + k] = draw_arr[i][k];
-			}
-			paint_map(map);
-			cout << "No one is win\n";////////////////////////////////////
-			rund_b = _getch();
-			return 0;
-		}
-
 	}
 	system("cls");
 }
-void restart_minimap(int (*arr)[3]) //парезегрузка мінькі
+
+
+
+int play_with_bot()
+{
+	//сделать оформление выбора х\о и уровня сложности
+	cout << "1) easy bot\n"
+		<< "2) medium bot\n"
+		<< "3) hard bot\n";
+	char setlvl = _getch();
+	system("cls");
+	cout << "1 - x or 2 - o\n";
+	char checkChoise = _getch();
+	system("cls");
+	int XorOType = 0;
+	checkChoise == 49 ? XorOType = 0 : 0;
+	checkChoise == 50 ? XorOType = 1 : 0;
+	int score = 0;
+	int coordinate_x = 20;
+	int coordinate_y = 9;
+	paint_map(map);
+	bool run = true;
+	while (run)
+	{
+		if (score % 2 == XorOType)
+		{
+			move(map, search_place, &coordinate_x, &coordinate_y, &score, &run);
+		}
+		else
+		{
+			Sleep(300);
+			switch (setlvl)
+			{
+			case 49:
+				easy_bot_move(&score);
+				break;
+			case 50:
+				medium_bot_move(&score);
+				break;
+			case 51:
+				//hard_bot_move(&score);
+				break;
+			}
+
+		}
+		whoNext(map, score);
+		system("cls");
+		paint_map(map);
+		if (draw_win_scene())
+			return 0;
+	}
+	system("cls");
+}
+
+
+void restart_minimap(int (*arr)[3]) //парезегрузка миникарты
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -635,7 +1071,7 @@ void restart_minimap(int (*arr)[3]) //парезегрузка мінькі
 }
 int main()
 {
-
+	srand(time(0));
 	copyMap(main_map, map);
 	while (true)
 	{
@@ -644,12 +1080,17 @@ int main()
 		copyMap(map, main_map);
 		restart_minimap(miniMap);
 		char button = _getch();
-		if (button == 13)
+		if (button == 49)
 		{
 			system("cls");
-			play();
+			play_with_friend();
 		}
-		else if (button == 27)
+		else if (button == 50)
+		{
+			system("cls");
+			play_with_bot();
+		}
+		else if (button == 27 || button == 51)
 		{
 			system("cls");
 			paint_map(end_prog);
