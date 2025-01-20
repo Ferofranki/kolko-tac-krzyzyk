@@ -103,25 +103,21 @@ char end_prog[rows][colum] = {
 	{ "                                                                                                                       " },
 	{ "                                                                                                                       " }
 };
-class Bot
-{
-
-};
 
 const int s_place_rows = 8;
 const int s_place_colums = 20;
 char search_place[s_place_rows][s_place_colums] = { { "         |         "},
-												    { "                   "},
-												    { "                   "},
-												    { "-                 -"},
-												    { "-                 -"},
-												    { "                   "},
-												    { "                   "},
-												    { "         |         "} };
+												  { "                   "},
+												  { "                   "},
+												  { "-                 -"},
+												  { "-                 -"},
+												  { "                   "},
+												  { "                   "},
+												  { "         |         "} };
 
 const int X_rows = 8;
 const int X_colums = 20;
-char X_arr[X_rows][X_colums] = {      {"                   "},
+char X_arr[X_rows][X_colums] = { {"                   "},
 									  { "     X       X     "},
 									  { "       X   X       "},
 									  { "         X         "},
@@ -132,7 +128,7 @@ char X_arr[X_rows][X_colums] = {      {"                   "},
 
 const int O_rows = 8;
 const int O_colums = 20;
-char O_arr[O_rows][O_colums] = {      {"                   "},
+char O_arr[O_rows][O_colums] = { {"                   "},
 									  { "       OOOOO       "},
 									  { "     O       O     "},
 									  { "    O         O    "},
@@ -145,23 +141,50 @@ char O_arr[O_rows][O_colums] = {      {"                   "},
 const int win_rows = 6;
 const int win_colums = 27;
 char win_arr[win_rows][win_colums] = { { "                          " },
-									    { "#       #  #   #   #      "},
-									    { "#   #   #      ##  #      "},
-									    { " #  #  #   #   # # #      "},
-								        { " # # # #   #   #  ##      "},
-									    { "  #   #    #   #   #      "} };
+									  { "#       #  #   #   #      "},
+									  { "#   #   #      ##  #      "},
+									  { " #  #  #   #   # # #      "},
+									  { " # # # #   #   #  ##      "},
+									  { "  #   #    #   #   #      "} };
 const int draw_rows = 6;
 const int draw_colums = 44;
-char draw_arr[draw_rows][draw_colums] = {	 { "                                           " },
+char draw_arr[draw_rows][draw_colums] = { { "                                           " },
 											 { "  ####   ####        #      #       #      "},
 											 { "  #   #  #   #      # #     #   #   #      "},
 											 { "  #   #  ####      #   #     #  #  #       "},
 											 { "  #   #  #  #     #######    # # # #       "},
 											 { "  ####   #    #  #       #    #   #        "} };
 
+const int choose_rows = 7;
+const int choose_colums = 28;
+char choose_arr[choose_rows][choose_colums] = { { "X       X    //    OOOOO   " },
+												  { "  X   X     //   O       O "},
+												  { "    X       //  O         O"},
+												  { "    X      //   O         O"},
+												  { "  X   X    //    O       O "},
+												  { "X       X //       OOOOO   "},
+												  { "    1                2     "} };
 
-
-
+const int choose_lvl_rows = 17;
+const int choose_lvl_colums = 42;
+char choose_lvl_arr[choose_lvl_rows][choose_lvl_colums] = { {"  #    ####    #    ####  #  #           "},
+															{" ##    #      # #   #     #  #           "},
+															{"# #    ####  #   #  ####  ####           "},
+															{"  #    #     #####     #     #           "},
+															{"  # *  ####  #   #  ####  ####           "},
+															{"                                         "},
+															{" ##    #   #  ####  ###   #  #   #  #   #"},
+															{"#  #   ## ##  #     #  #     #   #  ## ##"},
+															{"  #    # # #  ####  #  #  #  #   #  # # #"},
+															{" #     #   #  #     #  #  #  #  ##  #   #"},
+															{"####*  #   #  ####  ###   #  ### #  #   #"},
+															{"                                         "},
+															{" ##    #   #    #    ###   ###           "},
+															{"#  #   #   #   # #   #  #  #  #          "},
+															{"  #    #####  #   #  ###   #  #          "},
+															{"#  #   #   #  #####  # #   #  #          "},
+															{" ## *  #   #  #   #  #  #  ###           "},
+};
 
 
 
@@ -171,8 +194,8 @@ const int cross_colums1 = 60;
 char crossRow_arr1[cross_colums1] = { "===========================================================" };
 const int cross_rows2 = 27;
 const int cross_colums2 = 3;
-char crossRow_arr2[cross_rows2][cross_colums2] = {{ "||" },
-												  { "||" },
+char crossRow_arr2[cross_rows2][cross_colums2] = { {"||"},
+												  {"||"},
 												  { "||" },
 												  { "||" },
 												  { "||" },
@@ -203,7 +226,7 @@ char crossRow_arr2[cross_rows2][cross_colums2] = {{ "||" },
 const int d2_rows = 27;
 const int d2_colum = 60;
 
-char cross_d2[d2_rows][d2_colum] = {    {"                                                       //  "},
+char cross_d2[d2_rows][d2_colum] = { {"                                                       //  "},
 										{"                                                     //    "},
 										{"                                                   //      "},
 										{"                                                 //        "},
@@ -234,7 +257,7 @@ char cross_d2[d2_rows][d2_colum] = {    {"                                      
 const int d1_rows = 27;
 const int d1_colum = 60;
 
-char cross_d1[d1_rows][d1_colum] = {    {"  //                                                       "},
+char cross_d1[d1_rows][d1_colum] = { {"  //                                                       "},
 										{"    //                                                     "},
 										{"      //                                                   "},
 										{"        //                                                 "},
@@ -277,7 +300,6 @@ void paint_map(char (*arr)[colum])//вывод карты
 	{
 		for (int k = 0; k < colum; k++)
 		{
-			//cout << arr[i][k];
 			arr_row[k] = arr[i][k];
 		}
 		cout << arr_row << endl;
@@ -404,6 +426,34 @@ int isWin(int (*miniMap)[3], char (*arr)[colum])//расчет победите�
 
 
 
+}
+int isWin_miniMaks(int miniMap[3][3]) {
+	bool noOne = true;
+	for (int i = 0; i < 3; i++) {
+		int r = 1;
+		int c = 1;
+		int d1 = 1;
+		int d2 = 1;
+
+		for (int k = 0; k < 3; k++) {
+			r *= miniMap[i][k];
+			c *= miniMap[k][i];
+			d1 *= miniMap[k][k];
+			d2 *= miniMap[2 - k][k];
+			if (miniMap[i][k] == 0)
+				noOne = false;
+		}
+		if (r == 1 || c == 1 || d1 == 1 || d2 == 1) {
+			return 1;
+		}
+		if (r == 8 || c == 8 || d1 == 8 || d2 == 8) {
+			return 2;
+		}
+	}
+	if (noOne) {
+		return 3;
+	}
+	return 0;
 }
 void easy_bot_move(int* score)
 {
@@ -738,7 +788,6 @@ void medium_bot_move(int* score)
 			}
 		}
 	}
-	Sleep(300);
 
 	if (hit_row != -1)
 	{
@@ -780,11 +829,41 @@ void medium_bot_move(int* score)
 			}
 		}
 	}
-
-	cout << hit_row;
-	Sleep(1000);
 }
 
+void choose_type_draw()
+{
+	char ch_arr[rows][colum] = { ' ' };
+	for (int i = 0; i < rows; i++)
+	{
+		for (int k = 0; k < colum - 1; k++)
+		{
+			ch_arr[i][k] = ' ';
+		}
+	}
+	for (int i = 0; i < choose_rows; i++)
+	{
+		for (int k = 0; k < choose_colums - 1; k++)
+		{
+			ch_arr[i + 10][k + 50] = choose_arr[i][k];
+
+		}
+	}
+	paint_map(ch_arr);
+}
+void choose_bot_lvl_draw()
+{
+	system("cls");
+	char r[choose_lvl_colums] = { ' ' };
+	for (int i = 0; i < choose_lvl_rows; i++)
+	{
+		for (int k = 0; k < choose_lvl_colums; k++)
+		{
+			r[k] = choose_lvl_arr[i][k];
+		}
+		cout << r << endl;
+	}
+}
 int move(char (*arr)[colum], char(&search_place)[s_place_rows][s_place_colums], int* coordinate_x, int* coordinate_y, int* score, bool* run) //передвижение и навигация
 {
 
@@ -1004,18 +1083,62 @@ int play_with_friend()
 	}
 	system("cls");
 }
+struct Move {
+	int index_X;
+	int index_Y;
+	int score;
+};
+Move minimax(int miniMap[3][3], int depth, bool isMaximizing) {
+	int winner = isWin_miniMaks(miniMap);
+	if (winner == 1) return { -1, -1, 10 - depth };
+	if (winner == 2) return { -1, -1, depth - 10 };
+	if (winner == 3) return { -1, -1, 0 };
 
-
-
+	if (isMaximizing) {
+		Move bestMove = { -1, -1, -1000 };
+		for (int i = 0; i < 3; ++i) {
+			for (int k = 0; k < 3; k++) {
+				if (miniMap[i][k] == 0) {
+					miniMap[i][k] = 1;
+					Move move = minimax(miniMap, depth + 1, false);
+					miniMap[i][k] = 0;
+					if (move.score > bestMove.score) {
+						bestMove = { i, k, move.score };
+					}
+				}
+			}
+		}
+		return bestMove;
+	}
+	else {
+		Move bestMove = { -1, -1, 1000 };
+		for (int i = 0; i < 3; ++i) {
+			for (int k = 0; k < 3; k++) {
+				if (miniMap[i][k] == 0) {
+					miniMap[i][k] = 2;
+					Move move = minimax(miniMap, depth + 1, true);
+					miniMap[i][k] = 0;
+					if (move.score < bestMove.score) {
+						bestMove = { i, k, move.score };
+					}
+				}
+			}
+		}
+		return bestMove;
+	}
+}
+void hard_bot_move(int* score)
+{
+	Move bestMove = minimax(miniMap, 0, true);
+	bot_draw(score, bestMove.index_X, bestMove.index_Y);
+}
 int play_with_bot()
 {
 	//сделать оформление выбора х\о и уровня сложности
-	cout << "1) easy bot\n"
-		<< "2) medium bot\n"
-		<< "3) hard bot\n";
+	choose_bot_lvl_draw();
 	char setlvl = _getch();
 	system("cls");
-	cout << "1 - x or 2 - o\n";
+	choose_type_draw();
 	char checkChoise = _getch();
 	system("cls");
 	int XorOType = 0;
@@ -1044,7 +1167,7 @@ int play_with_bot()
 				medium_bot_move(&score);
 				break;
 			case 51:
-				//hard_bot_move(&score);
+				hard_bot_move(&score);
 				break;
 			}
 
